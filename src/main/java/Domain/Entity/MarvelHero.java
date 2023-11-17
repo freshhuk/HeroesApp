@@ -4,11 +4,13 @@ import Domain.Interface.IHero;
 
 public class MarvelHero implements IHero
 {
+    public int Id;
     public String name;
     public int iq;
     public int power;
-    public MarvelHero(String name, int iq, int power)
+    public MarvelHero(int id,String name, int iq, int power)
     {
+        this.Id = id;
         this.name = name;
         this.iq = iq;
         this.power = power;
@@ -16,7 +18,6 @@ public class MarvelHero implements IHero
     @Override
     public String Info()
     {
-        var result = "Hero info: Name - %s, IQ - %d, Power - %d", name, iq, power;
-        return "Hero info: Name - %s, IQ - %d, Power - %d", name, iq, power;
+        return "Hero info: Name - " + name + ", IQ - " + iq + ", Power - " + power;
     }
 }
