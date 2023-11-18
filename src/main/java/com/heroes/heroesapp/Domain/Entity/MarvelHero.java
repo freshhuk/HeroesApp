@@ -1,6 +1,6 @@
-package Domain.Entity;
+package com.heroes.heroesapp.Domain.Entity;
 
-import Domain.Interface.IHero;
+import com.heroes.heroesapp.Domain.Interface.IHero;
 
 public class MarvelHero implements IHero
 {

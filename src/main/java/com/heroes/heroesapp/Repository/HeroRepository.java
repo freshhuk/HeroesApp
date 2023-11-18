@@ -1,15 +1,18 @@
-package Repository;
+package com.heroes.heroesapp.Repository;
 
 
-import Domain.Entity.MarvelHero;
-import Domain.Interface.IRepository;
+import com.heroes.heroesapp.Domain.Entity.MarvelHero;
+import com.heroes.heroesapp.Domain.Interface.IRepository;
+import org.springframework.stereotype.Service;//for create service
 
 import java.util.List;
 import java.util.ArrayList;
-
+@Service // create service
 public class HeroRepository implements IRepository<MarvelHero>
 {
     public List<MarvelHero> repos = new ArrayList<>();
+
+
     @Override
     public List<MarvelHero> All()
     {

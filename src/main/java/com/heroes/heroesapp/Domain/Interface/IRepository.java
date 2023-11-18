@@ -1,4 +1,4 @@
-package Domain.Interface;
+package com.heroes.heroesapp.Domain.Interface;
 import java.util.List;
 
 public interface IRepository<T>
