@@ -1,8 +1,7 @@
 package com.heroes.heroesapp.Domain.Entity;
 
-import com.heroes.heroesapp.Domain.Interface.IHero;
 
-public class MarvelHero implements IHero
+public class MarvelHero
 {
     public int Id;
     public String name;
@@ -15,9 +14,5 @@ public class MarvelHero implements IHero
         this.iq = iq;
         this.power = power;
     }
-    @Override
-    public String Info()
-    {
-        return "Hero info: Name - " + name + ", IQ - " + iq + ", Power - " + power;
-    }
+
 }
