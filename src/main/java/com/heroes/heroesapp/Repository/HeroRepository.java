@@ -24,7 +24,7 @@ public class HeroRepository implements IRepository<MarvelHero>
     {
         for (MarvelHero hero : repos)
         {
-            if(hero.Id == id)
+            if(hero.getId() == id)
             {
                 return  hero;
             }
@@ -35,7 +35,7 @@ public class HeroRepository implements IRepository<MarvelHero>
     @Override
     public void Delete(int id)
     {
-        repos.removeIf(hero -> hero.Id == id);
+        repos.removeIf(hero -> hero.getId() == id);
 
     }
 

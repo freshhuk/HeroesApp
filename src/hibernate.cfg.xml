@@ -1,0 +1,8 @@
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/my_db</property>
+        <property name="connection.username">freshhuk</property>
+        <property name="connection.password">freshhuk</property>
+    </session-factory>
+</hibernate-configuration>
