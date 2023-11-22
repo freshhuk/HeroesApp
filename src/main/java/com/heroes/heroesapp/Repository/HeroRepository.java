@@ -13,18 +13,18 @@ import java.util.ArrayList;
 @Repository
 public class HeroRepository implements IRepository<MarvelHero>
 {
-    //Todo добавить везде ссесии для контекста моего бд
+    //Todo добавить метод для удаление из бд
     private final SessionFactory factory = new Configuration()
             .configure("hibernate.cfg.xml")
             .addAnnotatedClass(MarvelHero.class)
             .buildSessionFactory();
-    public List<MarvelHero> repos = new ArrayList<>();
 
 
     @Override
     public List<MarvelHero> All()
     {
-        try (Session session = factory.openSession())
+        Session session = factory.openSession();
+        try
         {
             session.beginTransaction();
 
@@ -33,13 +33,17 @@ public class HeroRepository implements IRepository<MarvelHero>
             session.getTransaction().commit();
             return heroes;
         }
+        finally
+        {
+            session.close();
+        }
     }
 
     @Override
     public MarvelHero GetHero(int id)
     {
-        //Session session = factory.openSession();
-        try(Session session = factory.openSession())
+        Session session = factory.openSession();
+        try
         {
                 session.beginTransaction();
                 MarvelHero hero = session.get(MarvelHero.class, id);
