@@ -17,29 +17,14 @@ import org.springframework.http.ResponseEntity;
 public class RestAPIHeroes
 {
     private final IRepository<MarvelHero> _repository;
-    //Подключаем нашу фабрику сесий, которая будет брать конфиг нашей бд и на нее делать запросы
-    private final SessionFactory factory = new Configuration()
-            .configure("hibernate.cfg.xml")
-            .addAnnotatedClass(MarvelHero.class)
-            .buildSessionFactory();
-    private final Session session = factory.getCurrentSession();
+
     @Autowired
     public RestAPIHeroes(IRepository<MarvelHero> repository)
     {
         _repository = repository;
     }
-//Todo решить проблему с методом добовление пользователя. при зауске получаю исключение.
-// Для теста весь код про ссесии запихнуть в мейн
-    @GetMapping("/test")
-    public ResponseEntity<String> TestAdd()
-    {
-        var model = new MarvelHero("Betman", 20, 200);
 
-        session.beginTransaction();//Открываем транзакцию
-        session.save(model);//делаем запрос к бд
-        session.getTransaction().commit();//закрываем транзакцию
-        return ResponseEntity.ok().body("Successful");
-    }
+
 
 
 
@@ -55,6 +40,7 @@ public class RestAPIHeroes
     {
         try
         {
+
             if(model != null)
             {
                 _repository.Add(model);
@@ -65,6 +51,10 @@ public class RestAPIHeroes
         catch(Exception  exception)
         {
             return ResponseEntity.badRequest().body("Error added");
+        }
+        finally
+        {
+
         }
     }
     @DeleteMapping("/delete")
