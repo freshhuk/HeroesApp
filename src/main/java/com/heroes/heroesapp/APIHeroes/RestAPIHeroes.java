@@ -2,11 +2,9 @@ package com.heroes.heroesapp.APIHeroes;
 import java.util.List;
 import com.heroes.heroesapp.Domain.Entity.MarvelHero;
 import com.heroes.heroesapp.Domain.Interface.IRepository;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
+import com.heroes.heroesapp.Domain.Models.HeroUpdateDTO;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.style.ToStringCreator;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
@@ -28,19 +26,11 @@ public class RestAPIHeroes
 
 
 
-
-    @GetMapping("/heroes")
-    public ResponseEntity<List<MarvelHero>> GetAll()
-    {
-        var heroes = _repository.All();
-        return ResponseEntity.ok(heroes);
-    }
     @PostMapping ("/add")
     public ResponseEntity<String> AddEntity(@RequestBody MarvelHero model)
     {
         try
         {
-
             if(model != null)
             {
                 _repository.Add(model);
@@ -52,11 +42,19 @@ public class RestAPIHeroes
         {
             return ResponseEntity.badRequest().body("Error added");
         }
-        finally
-        {
-
-        }
     }
+    @GetMapping("/heroes")
+    public ResponseEntity<List<MarvelHero>> GetAll()
+    {
+        var heroes = _repository.All();
+        return ResponseEntity.ok(heroes);
+    }
+   @PutMapping("/update")
+   public ResponseEntity<String> UpdateEntity(HeroUpdateDTO model)
+   {
+       _repository.Update(model);
+       return ResponseEntity.ok().body("Successful update");
+   }
     @DeleteMapping("/delete")
     public ResponseEntity<String> DeleteEntity(@RequestBody MarvelHero model)
     {
