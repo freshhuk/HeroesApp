@@ -52,8 +52,12 @@ public class RestAPIHeroes
    @PutMapping("/update")
    public ResponseEntity<String> UpdateEntity(HeroUpdateDTO model)
    {
-       _repository.Update(model);
-       return ResponseEntity.ok().body("Successful update");
+       if(model != null)
+       {
+           _repository.Update(model);
+           return ResponseEntity.ok().body("Successful update");
+       }
+       return ResponseEntity.badRequest().body("ModelUpdate is null");
    }
     @DeleteMapping("/delete")
     public ResponseEntity<String> DeleteEntity(@RequestBody MarvelHero model)

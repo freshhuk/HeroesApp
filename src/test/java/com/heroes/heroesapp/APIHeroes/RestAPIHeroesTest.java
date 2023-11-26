@@ -1,5 +1,6 @@
 package com.heroes.heroesapp.APIHeroes;
 import com.heroes.heroesapp.Domain.Entity.MarvelHero;
+import com.heroes.heroesapp.Domain.Models.HeroUpdateDTO;
 import com.heroes.heroesapp.Repository.HeroRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -29,6 +30,7 @@ class RestAPIHeroesTest
         String expectedmassage = "Entity added successful";
         Assertions.assertEquals(expectedmassage, result);
     }
+
     @Test
     void GetAllTest()
     {
@@ -44,4 +46,26 @@ class RestAPIHeroesTest
 
 
     }
+
+    @Test
+    void UpdateEntityTest()
+    {
+        HeroUpdateDTO entity = new HeroUpdateDTO(1, "Test", 20, 3);
+        var result = controller.UpdateEntity(entity).getBody();
+        String expectedmassage = "Successful update";
+
+        Assertions.assertEquals(expectedmassage, result);
+    }
+
+    @Test
+    void DeleteEntityTest()
+    {
+        MarvelHero entity_1 = new MarvelHero("Test", 20,20);
+        var result = controller.DeleteEntity(entity_1).getBody();
+        String expectedmassage = "Successful delete";
+
+        Assertions.assertEquals(expectedmassage, result);
+
+    }
+
 }

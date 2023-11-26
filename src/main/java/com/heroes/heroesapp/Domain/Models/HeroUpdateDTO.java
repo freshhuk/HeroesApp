@@ -1,7 +1,6 @@
 package com.heroes.heroesapp.Domain.Models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
+
 
 public class HeroUpdateDTO
 {
@@ -10,6 +9,13 @@ public class HeroUpdateDTO
     private String name;
     private int iq;
     private int power;
+
+    public HeroUpdateDTO(int id, String name, int iq, int power) {
+        this.id = id;
+        this.name = name;
+        this.iq = iq;
+        this.power = power;
+    }
 
     public void setId(int id) {
         this.id = id;
