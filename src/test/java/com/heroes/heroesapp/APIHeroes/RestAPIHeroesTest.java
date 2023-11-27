@@ -68,4 +68,32 @@ class RestAPIHeroesTest
 
     }
 
+    @Test
+    void AddNullEntityTest()
+    {
+        var result = controller.AddEntity(null).getBody();
+        String expectedmassage = "Entity is null";
+        Assertions.assertEquals(expectedmassage, result);
+    }
+
+    @Test
+    void UpdateNullEntityTest()
+    {
+        var result = controller.UpdateEntity(null).getBody();
+        String expectedmassage = "ModelUpdate is null";
+
+        Assertions.assertEquals(expectedmassage, result);
+    }
+
+    @Test
+    void DeleteNullEntityTest()
+    {
+
+        var result = controller.DeleteEntity(null).getBody();
+        String expectedmassage = "model is null";
+
+        Assertions.assertEquals(expectedmassage, result);
+
+    }
+
 }
