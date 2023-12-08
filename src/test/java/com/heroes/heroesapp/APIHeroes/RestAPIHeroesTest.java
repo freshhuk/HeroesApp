@@ -1,7 +1,6 @@
 package com.heroes.heroesapp.APIHeroes;
 import com.heroes.heroesapp.Domain.Entity.MarvelHero;
 import com.heroes.heroesapp.Domain.Models.HeroUpdateDTO;
-import com.heroes.heroesapp.Repository.HeroRepository;
 import com.heroes.heroesapp.Services.SortHeroesService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -18,8 +17,7 @@ class RestAPIHeroesTest
 {
     @InjectMocks
     RestAPIHeroes controller;
-    @Mock
-    HeroRepository mockrepository;
+
     @Mock
     SortHeroesService mocksortservice;
 
@@ -32,7 +30,7 @@ class RestAPIHeroesTest
         String expectedmassage = "Entity added successful";
         Assertions.assertEquals(expectedmassage, result);
     }
-//Todo
+
     @Test
     void GetAllTest()
     {
