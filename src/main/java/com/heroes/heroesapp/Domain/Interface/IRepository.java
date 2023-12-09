@@ -6,9 +6,8 @@ import java.util.List;
 public interface IRepository<T>
 {
     List<T> All();
-    T GetHero(int id);
+    T GetEntity(int id);
     void Delete(int id);
     void Add(T entity);
-    void Update(HeroUpdateDTO model);
-
+    void Update(HeroUpdateDTO entity);
 }

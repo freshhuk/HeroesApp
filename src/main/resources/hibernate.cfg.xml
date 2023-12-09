@@ -10,5 +10,6 @@
     <property name="format_sql">true</property>
 
     <mapping class="com.heroes.heroesapp.Domain.Entity.MarvelHero"/>
+    <mapping class="com.heroes.heroesapp.Domain.Entity.User"/>
 </session-factory>
 </hibernate-configuration>
