@@ -2,10 +2,24 @@ package com.heroes.heroesapp.Domain.Entity;
 
 import com.heroes.heroesapp.Domain.Enum.Role;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import java.util.List;
+
+import java.util.Collection;
 
 @Entity
+@Builder
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "users")
-public class User
+public class User implements UserDetails
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,54 +35,38 @@ public class User
     @Column(name = "role")
     private Role role;
 
-    public User(String login, String password, String email, Role role)
-    {
-        this.login = login;
-        this.password = password;
-        this.email = email;
-        this.role = role;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
-    public User() { }
-
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
+    @Override
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    @Override
+    public String getUsername() {
+        return login;
     }
 
-    public String getEmail() {
-        return email;
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
     }
 
-    public Role getRole() {
-        return role;
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }
