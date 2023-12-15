@@ -1,7 +1,9 @@
 package com.heroes.heroesapp.APIHeroes;
 
+import com.heroes.heroesapp.Domain.Models.RegisterUserRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -14,7 +16,7 @@ public class APIAuthorization
         return "Successful";
     }
     @PostMapping("/register")
-    public String UserRegister()
+    public String UserRegister(@RequestBody RegisterUserRequest userdata)
     {
         return "Successful";
     }
