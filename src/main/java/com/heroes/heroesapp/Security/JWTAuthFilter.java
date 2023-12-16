@@ -25,8 +25,8 @@ public class JWTAuthFilter extends OncePerRequestFilter
         // we extract header in request where header "Authorization"
         final String authHeader = request.getHeader("Authorization");
         final String jwt;
-        final String userEmail;
-        //if we have not header or this header don't have tag Bearer we skip this request
+        final String userLogin;
+        //if we have no header or this header don't have tag Bearer we skip this request
         if( authHeader == null || !authHeader.startsWith("Bearer "))
         {
             filterChain.doFilter(request, response);
@@ -34,6 +34,6 @@ public class JWTAuthFilter extends OncePerRequestFilter
         }
         //if we have tag and header we extract jwt token
         jwt = authHeader.substring(7);
-        userEmail = jwtService.ExtractUserEmail(jwt);
+        userLogin = jwtService.ExtractUserLogin(jwt);
     }
 }
