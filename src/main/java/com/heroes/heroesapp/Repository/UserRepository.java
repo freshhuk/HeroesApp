@@ -11,6 +11,7 @@ import org.hibernate.Session;
 import reactor.core.scheduler.Schedulers;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class UserRepository implements IRepository<User>
@@ -39,6 +40,17 @@ public class UserRepository implements IRepository<User>
         {
             session.beginTransaction();
             var model = session.get(User.class,id);
+            session.getTransaction().commit();
+            return model;
+        }
+    }
+
+    public User GetUserByLogin(String user_login)
+    {
+        try(Session session = factory.openSession())
+        {
+            session.beginTransaction();
+            var model = session.get(User.class, user_login);
             session.getTransaction().commit();
             return model;
         }
