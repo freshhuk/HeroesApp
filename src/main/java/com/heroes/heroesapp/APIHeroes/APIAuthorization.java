@@ -2,9 +2,9 @@ package com.heroes.heroesapp.APIHeroes;
 
 import com.heroes.heroesapp.Domain.Models.RegisterUserRequest;
 import com.heroes.heroesapp.Domain.Models.RegisterResponse;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import com.heroes.heroesapp.Repository.UserRepository;
-import com.heroes.heroesapp.Security.JwtService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,12 +20,10 @@ import com.heroes.heroesapp.Domain.Entity.User;
 public class APIAuthorization
 {
     private final UserRepository userRepository;
-    private final JwtService jwtService;
 
     @Autowired
-    public APIAuthorization(UserRepository userRepository, JwtService jwtService) {
+    public APIAuthorization(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.jwtService = jwtService;
     }
     @PostMapping("/login")
     public ResponseEntity<String> UserLogin()
@@ -33,10 +31,15 @@ public class APIAuthorization
         return null;
     }
 
-
-    @PostMapping("/register")
-    public ResponseEntity<RegisterResponse> UserRegister(@RequestBody RegisterUserRequest register_model)
+    @GetMapping("/welcome")
+    public String TestAuth()
     {
+        return "welcome";
+    }
+    @PostMapping("/register")
+    public ResponseEntity<RegisterResponse> UserRegister()
+    {
+        /*
         if (register_model == null)
         {
             return ResponseEntity.badRequest().build();
@@ -50,7 +53,8 @@ public class APIAuthorization
 
         String token = jwtService.GenerationToken(user);
         RegisterResponse response = new RegisterResponse(token);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(response);*/
+        return null;
     }
 
 
