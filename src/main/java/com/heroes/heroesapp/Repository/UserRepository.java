@@ -8,12 +8,14 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.springframework.stereotype.Repository;
 import org.hibernate.Session;
+import org.springframework.stereotype.Service;
 import reactor.core.scheduler.Schedulers;
 
 import java.util.List;
 import java.util.Optional;
 
 @Repository
+
 public class UserRepository implements IRepository<User>
 {
     private  final SessionFactory factory = new Configuration()
@@ -45,14 +47,14 @@ public class UserRepository implements IRepository<User>
         }
     }
 
-    public User GetUserByLogin(String user_login)
+    public Optional<User> GetUserByLogin(String user_login)
     {
         try(Session session = factory.openSession())
         {
             session.beginTransaction();
             var model = session.get(User.class, user_login);
             session.getTransaction().commit();
-            return model;
+            return Optional.ofNullable(model);
         }
     }
 

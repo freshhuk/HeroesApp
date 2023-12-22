@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 
 @Service
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/app")
 public class RestAPIHeroes
 {
     private final IRepository<MarvelHero> _repository;

@@ -1,11 +1,9 @@
 package com.heroes.heroesapp.APIHeroes;
 
-import com.heroes.heroesapp.Domain.Models.RegisterUserRequest;
-import com.heroes.heroesapp.Domain.Models.RegisterResponse;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.heroes.heroesapp.Repository.UserRepository;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,49 +18,26 @@ import com.heroes.heroesapp.Domain.Entity.User;
 public class APIAuthorization
 {
     private final UserRepository userRepository;
-
+    private final PasswordEncoder passwordEncoder;
     @Autowired
-    public APIAuthorization(UserRepository userRepository) {
+    public APIAuthorization(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
-    @PostMapping("/login")
-    public ResponseEntity<String> UserLogin()
-    {
-        return null;
-    }
-
     @GetMapping("/welcome")
     public String TestAuth()
     {
         return "welcome";
     }
     @PostMapping("/register")
-    public ResponseEntity<RegisterResponse> UserRegister()
+    public String UserRegister(@RequestBody User user)
     {
-        /*
-        if (register_model == null)
+        if(user != null)
         {
-            return ResponseEntity.badRequest().build();
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            userRepository.Add(user);
+            return "User is saved";
         }
-        User user = new User();
-        user.setLogin(register_model.getLogin());
-        user.setEmail(register_model.getEmail());
-        user.setRole(register_model.getRole());
-        user.setPassword(register_model.getPassword());
-        userRepository.Add(user);
-
-        String token = jwtService.GenerationToken(user);
-        RegisterResponse response = new RegisterResponse(token);
-        return ResponseEntity.ok(response);*/
-        return null;
+        return "User not saved";
     }
-
-
-
-    @PostMapping("/logout")
-    public String UserLogout()
-    {
-        return "Successful";
-    }
-
 }
