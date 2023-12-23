@@ -12,9 +12,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
@@ -32,12 +33,10 @@ public class SecurityConfig
         return http
                 .csrf(AbstractHttpConfigurer::disable)//Защита от подмены пользователя
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(new AntPathRequestMatcher("/api/auth/welcome", "/api/auth/register")).permitAll()//Доступ по адрему всем
+                        .requestMatchers(new AntPathRequestMatcher("/api/auth/**")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/api/app/**")).authenticated())//Доступ к маршрутам начинающихся с /апи под аунтнентификацияй
+
                 .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)//Доступ всем к окну регестрации
-                .formLogin(form -> form
-                        .loginPage("/api/auth/register")
-                        .permitAll())
                 .build();
 
     }

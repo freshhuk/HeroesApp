@@ -1,7 +1,10 @@
 package com.heroes.heroesapp.APIHeroes;
 
+import com.heroes.heroesapp.Domain.Models.LoginRequest;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import com.heroes.heroesapp.Repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -11,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.heroes.heroesapp.Domain.Entity.User;
+
+import java.util.Optional;
 
 @Service
 @RestController
@@ -24,11 +29,8 @@ public class APIAuthorization
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
-    @GetMapping("/welcome")
-    public String TestAuth()
-    {
-        return "welcome";
-    }
+
+
     @PostMapping("/register")
     public String UserRegister(@RequestBody User user)
     {
@@ -40,4 +42,26 @@ public class APIAuthorization
         }
         return "User not saved";
     }
+    @PostMapping("/login")
+    public String UserLogin(@RequestBody LoginRequest loginDTO)
+    {
+        // Проверить, есть ли такой пользователь в базе данных
+        Optional<User> user = userRepository.GetUserByLogin(loginDTO.getLogin());
+        if (user.isEmpty())
+        {
+            // Пользователь не найден
+            return "User not found";
+        }
+        // Пользователь найден, сделать его авторизованным
+       Authentication authentication = new UsernamePasswordAuthenticationToken
+                (
+                user.get().getUsername(),
+                loginDTO.getPassword(),
+                user.get().getAuthorities()
+                );
+
+       SecurityContextHolder.getContext().setAuthentication(authentication);
+        return "Пользователь авторизован";
+    }
+
 }
