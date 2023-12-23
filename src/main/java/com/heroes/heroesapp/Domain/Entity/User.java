@@ -29,8 +29,6 @@ public class User implements UserDetails
     private String login;
     @Column(name = "password")
     private String password;
-    @Column(name = "email")
-    private String email;
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private Role role;

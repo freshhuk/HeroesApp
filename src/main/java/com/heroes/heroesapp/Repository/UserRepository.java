@@ -75,7 +75,7 @@ public class UserRepository implements IRepository<User>
     {
         try(Session session = factory.openSession())
         {
-            session.getTransaction();
+            session.beginTransaction();
             session.persist(entity);
             session.getTransaction().commit();
         }
