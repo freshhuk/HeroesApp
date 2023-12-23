@@ -6,6 +6,7 @@ import com.heroes.heroesapp.Domain.Interface.IRepository;
 import com.heroes.heroesapp.Domain.Models.HeroUpdateDTO;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 import org.hibernate.Session;
 import org.springframework.stereotype.Service;
@@ -52,7 +53,9 @@ public class UserRepository implements IRepository<User>
         try(Session session = factory.openSession())
         {
             session.beginTransaction();
-            var model = session.get(User.class, user_login);
+            Query query = session.createQuery("from User where login = :login");
+            query.setParameter("login", user_login);
+            User model = (User) query.uniqueResult();
             session.getTransaction().commit();
             return Optional.ofNullable(model);
         }
