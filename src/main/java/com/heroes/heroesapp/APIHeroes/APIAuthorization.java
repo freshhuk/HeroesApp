@@ -28,6 +28,10 @@ public class APIAuthorization
     public String UserRegister(@RequestBody User user)
     {
         String responce = authService.UserRegister(user);
+        if(responce.equals("User had been created"))
+        {
+            return "User had been created";
+        }
         return (responce.equals("Done")) ? "User is saved" : "User not saved";
 
     }

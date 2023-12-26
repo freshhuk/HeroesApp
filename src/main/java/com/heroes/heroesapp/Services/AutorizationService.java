@@ -33,7 +33,9 @@ public class AutorizationService
         Optional<User> user = userRepository.GetUserByLogin(loginModel.getLogin());
         // Пользователь не найден
         if (user.isEmpty())
+        {
             return "User not found";
+        }
         // Пользователь найден, сделать его авторизованным
         Authentication authentication = new UsernamePasswordAuthenticationToken
                 (
@@ -43,6 +45,7 @@ public class AutorizationService
                 );
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
+
         return "Done";
     }
 
@@ -50,9 +53,14 @@ public class AutorizationService
     {
         if(user != null)
         {
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            userRepository.Add(user);
-            return "Done";
+            Optional<User> userDb = userRepository.GetUserByLogin(user.getLogin());
+            if(userDb.isEmpty())
+            {
+                user.setPassword(passwordEncoder.encode(user.getPassword()));
+                userRepository.Add(user);
+                return "Done";
+            }
+            return "User had been created";
         }
         return "Model is null";
     }
