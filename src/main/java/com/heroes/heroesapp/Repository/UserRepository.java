@@ -59,24 +59,6 @@ public class UserRepository implements IRepository<User>
             return Optional.ofNullable(model);
         }
     }
-    /*
-    public boolean IsUserAlreadyCreated(String user_login)
-    {
-        try(Session session = factory.openSession())
-        {
-            session.beginTransaction();
-            Query query = session.createQuery("from User where login = :login");
-            query.setParameter("login", user_login);
-            User model = (User) query.uniqueResult();
-            session.getTransaction().commit();
-
-            if(model == null)
-            {
-                return false;
-            }
-            return true;
-        }
-    }*/
 
     @Override
     public void Delete(int id)
