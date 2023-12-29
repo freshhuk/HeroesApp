@@ -35,7 +35,6 @@ public class APIAuthorization
         return (responce.equals("Done")) ? "User is saved" : "User not saved";
 
     }
-    //todo
     @PostMapping("/login")
     public String UserLogin(@RequestBody LoginRequest loginDTO)
     {

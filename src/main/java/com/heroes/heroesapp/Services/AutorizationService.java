@@ -58,6 +58,14 @@ public class AutorizationService
             {
                 user.setPassword(passwordEncoder.encode(user.getPassword()));
                 userRepository.Add(user);
+                Authentication authentication = new UsernamePasswordAuthenticationToken
+                        (
+                                user.getUsername(),
+                                user.getPassword(),
+                                user.getAuthorities()
+                        );
+
+                SecurityContextHolder.getContext().setAuthentication(authentication);
                 return "Done";
             }
             return "User had been created";
