@@ -33,8 +33,8 @@ public class SecurityConfig
         return http
                 .csrf(AbstractHttpConfigurer::disable)//Защита от подмены пользователя
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(new AntPathRequestMatcher("/api/auth/**")).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/api/app/**")).authenticated())//Доступ к маршрутам начинающихся с /апи под аунтнентификацияй
+                        .requestMatchers(new AntPathRequestMatcher("/api/auth/**")).permitAll()//Маршруты разрешены без аунтентификации
+                        .requestMatchers(new AntPathRequestMatcher("/api/app/**")).authenticated())//Доступ к маршрутам начинающихся с /app под аунтнентификацияй
 
                 .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)//Доступ всем к окну регестрации
                 .build();
