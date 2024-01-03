@@ -33,7 +33,7 @@ public class HeroRepository implements IRepository<MarvelHero>
     }
 
     @Override
-    public MarvelHero GetHero(int id)
+    public MarvelHero GetEntity(int id)
     {
 
         try(Session session = factory.openSession())
@@ -71,6 +71,7 @@ public class HeroRepository implements IRepository<MarvelHero>
             }
         }
     }
+
     @Override
     public  void Update(HeroUpdateDTO model)
     {

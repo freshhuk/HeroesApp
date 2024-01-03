@@ -4,6 +4,7 @@ import com.heroes.heroesapp.Domain.Entity.MarvelHero;
 import com.heroes.heroesapp.Domain.Interface.IRepository;
 import com.heroes.heroesapp.Domain.Models.HeroUpdateDTO;
 
+import com.heroes.heroesapp.Services.SortHeroesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
@@ -11,15 +12,17 @@ import org.springframework.http.ResponseEntity;
 
 @Service
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/app")
 public class RestAPIHeroes
 {
     private final IRepository<MarvelHero> _repository;
+    private final SortHeroesService _sort_service;
 
     @Autowired
-    public RestAPIHeroes(IRepository<MarvelHero> repository)
+    public RestAPIHeroes(IRepository<MarvelHero> repository, SortHeroesService sort_service)
     {
         _repository = repository;
+        _sort_service = sort_service;
     }
 
 
@@ -44,9 +47,9 @@ public class RestAPIHeroes
         }
     }
     @GetMapping("/heroes")
-    public ResponseEntity<List<MarvelHero>> GetAll()
+    public ResponseEntity<List<MarvelHero>> GetAll(@RequestParam(name = "sort_type", defaultValue = "NoSort") String sort_type)
     {
-        var heroes = _repository.All();
+        var heroes = _sort_service.Sort_GetAllHeroes(sort_type);
         return ResponseEntity.ok(heroes);
     }
    @PutMapping("/update")

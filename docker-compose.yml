@@ -11,22 +11,17 @@ services:
       MYSQL_USER: freshhuk
       MYSQL_PASSWORD: freshhuk
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - mysql-data:/var/lib/mysql
 
   my-hero-app:
     platform: linux/amd64
     build: .
+    ports:
+      - "8080:8080"
     depends_on:
       - mysql-container
-    environment:
-      SPRING_APPLICATION_NAME: my-hero-app
-      DB_HOST: mysql-container
-      DB_PORT: 3306
-      DB_DATABASE: my_db
-      DB_USERNAME: freshhuk
-      DB_PASSWORD: freshhuk
 
 volumes:
   mysql-data:

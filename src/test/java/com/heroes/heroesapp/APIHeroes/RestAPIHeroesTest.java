@@ -1,7 +1,7 @@
 package com.heroes.heroesapp.APIHeroes;
 import com.heroes.heroesapp.Domain.Entity.MarvelHero;
 import com.heroes.heroesapp.Domain.Models.HeroUpdateDTO;
-import com.heroes.heroesapp.Repository.HeroRepository;
+import com.heroes.heroesapp.Services.SortHeroesService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,9 +17,9 @@ class RestAPIHeroesTest
 {
     @InjectMocks
     RestAPIHeroes controller;
-    @Mock
-    HeroRepository mockrepository;
 
+    @Mock
+    SortHeroesService mocksortservice;
 
 
     @Test
@@ -38,9 +38,9 @@ class RestAPIHeroesTest
         MarvelHero entity_2 = new MarvelHero("Test2", 20,20);
         List<MarvelHero> expectedList = List.of(entity_1, entity_2);
 
-        Mockito.when(mockrepository.All()).thenReturn(List.of(entity_1, entity_2));
+        Mockito.when(mocksortservice.Sort_GetAllHeroes("NoSort")).thenReturn(List.of(entity_1, entity_2));
 
-        List<MarvelHero> result = controller.GetAll().getBody();
+        List<MarvelHero> result = controller.GetAll("NoSort").getBody();
 
         Assertions.assertEquals(expectedList, result);
 
