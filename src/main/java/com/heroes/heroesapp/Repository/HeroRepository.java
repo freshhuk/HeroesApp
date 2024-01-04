@@ -13,6 +13,7 @@ import java.util.List;
 @Repository
 public class HeroRepository implements IRepository<MarvelHero>
 {
+    //Создаем поле фабрику сессий де указываем наш конфиг файл и entity из бд что бы можно было создавать сессии для запросов к бд
     private final SessionFactory factory = new Configuration()
             .configure("hibernate.cfg.xml")
             .addAnnotatedClass(MarvelHero.class)
