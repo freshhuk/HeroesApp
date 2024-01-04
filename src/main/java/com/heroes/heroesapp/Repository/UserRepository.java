@@ -82,9 +82,9 @@ public class UserRepository implements IRepository<User>
         }
     }
 
-    //Todo костыль
+    //костыль
     @Override
-    public void Update(HeroUpdateDTO entity) {
-
+    public void Update(HeroUpdateDTO entity)
+    {
     }
 }
