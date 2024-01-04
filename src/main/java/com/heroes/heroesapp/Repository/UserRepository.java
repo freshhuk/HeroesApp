@@ -1,7 +1,6 @@
 package com.heroes.heroesapp.Repository;
 
 import com.heroes.heroesapp.Domain.Entity.User;
-import com.heroes.heroesapp.Domain.Entity.MarvelHero;
 import com.heroes.heroesapp.Domain.Interface.IRepository;
 import com.heroes.heroesapp.Domain.Models.HeroUpdateDTO;
 import org.hibernate.SessionFactory;
@@ -20,7 +19,7 @@ public class UserRepository implements IRepository<User>
 {
     private  final SessionFactory factory = new Configuration()
             .configure("hibernate.cfg.xml")
-            .addAnnotatedClass(MarvelHero.class)
+            .addAnnotatedClass(User.class)
             .buildSessionFactory();
 
     @Override
@@ -83,9 +82,9 @@ public class UserRepository implements IRepository<User>
         }
     }
 
-    //Todo костыль
+    //костыль
     @Override
-    public void Update(HeroUpdateDTO entity) {
-
+    public void Update(HeroUpdateDTO entity)
+    {
     }
 }

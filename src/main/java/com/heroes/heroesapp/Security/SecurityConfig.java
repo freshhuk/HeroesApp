@@ -23,11 +23,14 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SecurityConfig
 {
 
+    //Регестрируем наш UserDetailsService и указываем что б он возвращал наш MyUserDetailsService
     @Bean
     public UserDetailsService userDetailsService()
     {
         return new MyUserDetailsService();
     }
+
+    //Регестриуем наши настройки безопасности
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
@@ -40,6 +43,7 @@ public class SecurityConfig
                 .build();
 
     }
+    //Регестрируем наш провайдер с нашими класами
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
@@ -47,6 +51,7 @@ public class SecurityConfig
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }
+    //Регестрируем наш PasswordEncoder как бин что б мы могли его потом использовать в других класах
     @Bean
     public PasswordEncoder passwordEncoder()
     {
